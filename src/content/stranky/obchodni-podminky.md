@@ -7,7 +7,7 @@ poradi: 1
 
 ## 1. Prodávající
 
-Prodávajícím je **Jana Kreuzmannová – J+FK**, se sídlem Husníkova 2079/4, Praha 13 – Stodůlky, IČO: [DOPLNIT IČO], fyzická osoba podnikající podle živnostenského zákona, zapsaná v živnostenském rejstříku. [DOPLNIT: plátce / neplátce DPH]
+Prodávajícím je **Jana Kreuzmannová – J+FK**, se sídlem Husníkova 2079/4, Praha 13 – Stodůlky, IČO: 69828041, fyzická osoba podnikající podle živnostenského zákona, zapsaná v živnostenském rejstříku. Neplátce DPH.
 
 Kontakt: [JplusFK@gmail.com](mailto:JplusFK@gmail.com), +420 732 767 305.
 
@@ -21,15 +21,21 @@ Tyto obchodní podmínky upravují vztahy mezi prodávajícím a kupujícím př
 
 ## 3. Cena a platba
 
-1. Cena knihy je uvedena na webu a v potvrzení objednávky. [DOPLNIT: cena je konečná / včetně DPH]
-2. K ceně se připočítává poštovné podle zvoleného způsobu doručení: [DOPLNIT způsoby a ceny].
-3. Kupující může zaplatit: [DOPLNIT, např. převodem na účet předem / dobírkou / v hotovosti při osobním převzetí].
+1. Cena knihy je konečná a uvedená vč. DPH na webu a v potvrzení objednávky. 
+2. K ceně se připočítává poštovné podle zvoleného způsobu doručení: 
+• Zásilkovna 99 Kč;
+• Balíkovna 99 Kč;
+• osobní odběr 0 Kč.
+3. Kupující může zaplatit: 
+• převodem na účet předem;
+• dobírkou;
+• v hotovosti při osobním převzetí.
 4. Doklad o koupi zašle prodávající kupujícímu e-mailem nebo jej přiloží k zásilce.
 
 ## 4. Dodání
 
-1. Knihu prodávající odešle zpravidla do [DOPLNIT] pracovních dnů od uzavření smlouvy, při platbě předem od připsání platby na účet.
-2. Doručení zajišťuje [DOPLNIT dopravce]. Po domluvě je možné i osobní převzetí v Praze.
+1. Knihu prodávající odešle zpravidla do 3 pracovních dnů od uzavření smlouvy, při platbě předem od připsání platby na účet.
+2. Doručení zajišťuje zvolený dopravce. Po domluvě je možné i osobní převzetí v Praze.
 3. Kupující při převzetí zkontroluje neporušenost zásilky. Poškozenou zásilku může odmítnout nebo vadu sepsat s dopravcem.
 
 ## 5. Odstoupení od smlouvy
