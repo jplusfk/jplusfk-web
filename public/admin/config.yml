@@ -1,0 +1,252 @@
+# Nastavení administrace (Sveltia CMS). Klient tento soubor neupravuje.
+backend:
+  name: github
+  repo: DOPLNIT-UCET/jplusfk-web            # uživatelské jméno nebo organizace na GitHubu / název repozitáře
+  branch: main
+  base_url: https://sveltia-cms-auth.DOPLNIT.workers.dev   # adresa přihlašovacího Workeru
+  commit_messages:
+    update: 'Úprava obsahu: {{slug}}'
+    uploadMedia: 'Nahrán obrázek {{path}}'
+    deleteMedia: 'Smazán obrázek {{path}}'
+
+site_url: https://jplusfk.cz
+display_url: https://jplusfk.cz
+logo_url: /admin/logo.svg
+
+media_folder: src/assets/uploads
+public_folder: /src/assets/uploads
+
+# Jen vlastní nahrané obrázky: bez knihovny ukázkových fotek a bez vkládání odkazů na cizí obrázky.
+media_libraries:
+  default:
+    config:
+      transformations:
+        raster_image:
+          format: webp
+          quality: 85
+          width: 2400
+          height: 2400
+  stock_assets:
+    providers: []
+
+collections:
+  - name: web
+    label: Obsah webu
+    icon: menu_book
+    files:
+      - name: uvod
+        label: Stránka o knize
+        file: src/content/web/uvod.yml
+        fields:
+          - label: Úvod (horní část stránky)
+            name: hero
+            widget: object
+            fields:
+              - { label: Malý text nad názvem, name: nadtitul, widget: string, required: false }
+              - { label: Název knihy, name: nazev, widget: string }
+              - { label: Autor, name: autor, widget: string }
+              - { label: Podtitul, name: podtitul, widget: string, required: false }
+              - { label: Obálka knihy, name: obalka, widget: image, required: false, choose_url: false, hint: 'Ideálně JPG nebo PNG v poměru stran obálky, nejméně 1200 px na výšku.' }
+              - { label: Popis obálky pro nevidomé, name: obalka_alt, widget: string, required: false }
+              - { label: Text hlavního tlačítka (vede na „Jak knihu získat“), name: tlacitko, widget: string, required: false, hint: 'Prázdné = tlačítko se nezobrazí.' }
+              - label: Cenovka u obálky
+                name: cenovka
+                widget: object
+                required: false
+                fields:
+                  - { label: Zobrazit cenovku, name: zobrazit, widget: boolean, default: true }
+                  - { label: Cena, name: cena, widget: string, hint: 'Jen číslo, např. 550. „Kč“ se doplní samo.' }
+                  - { label: Přeškrtnutá cena, name: puvodni, widget: string, required: false, hint: 'Např. DMC 550 Kč. Prázdné = nezobrazí se.' }
+                  - { label: Text po obvodu, name: text, widget: string, required: false, hint: 'Krátký, nejvýš asi 50 znaků.' }
+
+          - label: O knize
+            name: kniha
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Nadpis, name: nadpis, widget: string }
+              - { label: Text, name: text, widget: markdown, buttons: [bold, italic, link], editor_components: [], hint: 'Nový odstavec = prázdný řádek (Enter).' }
+              - { label: Fotografie (nepovinná), name: foto, widget: image, required: false, choose_url: false }
+              - { label: Popis fotografie, name: foto_alt, widget: string, required: false }
+              - label: Údaje o knize
+                name: parametry
+                widget: list
+                label_singular: údaj
+                summary: '{{nazev}}: {{hodnota}}'
+                required: false
+                fields:
+                  - { label: Název údaje, name: nazev, widget: string }
+                  - { label: Hodnota, name: hodnota, widget: string }
+              - { label: Nadpis „Kde koupit“, name: koupit_nadpis, widget: string, required: false }
+              - { label: Text „Kde koupit“, name: koupit_text, widget: markdown, buttons: [bold, italic, link, bulleted-list], editor_components: [], required: false }
+              - label: Odkazy na obchody
+                name: koupit_odkazy
+                widget: list
+                label_singular: odkaz
+                summary: '{{text}}'
+                required: false
+                fields:
+                  - { label: Text tlačítka, name: text, widget: string }
+                  - { label: Adresa (URL), name: url, widget: string, hint: 'Celá adresa včetně https://, nebo mailto:adresa@domena.cz' }
+
+          - label: Fotogalerie (slider)
+            name: galerie
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Zobrazit galerii, name: zobrazit, widget: boolean, default: true }
+              - { label: Nadpis (nepovinný), name: nadpis, widget: string, required: false }
+              - label: Fotky
+                name: fotky
+                widget: list
+                label_singular: fotku
+                summary: '{{alt}}'
+                hint: 'Pořadí lze měnit přetažením. Fotky mohou mít různý poměr stran, v slideru mají stejnou výšku.'
+                required: false
+                fields:
+                  - { label: Fotka, name: foto, widget: image, choose_url: false }
+                  - { label: Popis fotky, name: alt, widget: string, required: false }
+
+          - label: Soundtrack
+            name: soundtrack
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Nadpis, name: nadpis, widget: string }
+              - { label: Text, name: text, widget: markdown, buttons: [bold, italic, link], editor_components: [] }
+              - { label: Fotografie (nepovinná), name: foto, widget: image, required: false, choose_url: false }
+              - { label: Popis fotografie, name: foto_alt, widget: string, required: false }
+              - label: Účinkující
+                name: interpreti
+                widget: list
+                label_singular: účinkující
+                summary: '{{jmeno}}'
+                required: false
+                fields:
+                  - { label: Jméno, name: jmeno, widget: string }
+                  - { label: Nástroj / role, name: role, widget: string, required: false }
+              - { label: Nadpis nad odkazy k poslechu, name: poslech_nadpis, widget: string, required: false }
+              - label: Odkazy k poslechu
+                name: platformy
+                widget: list
+                label_singular: platforma
+                summary: '{{nazev}}'
+                hint: 'Odkaz se na webu ukáže, jen když je vyplněná adresa a zaškrtnuté „Zobrazit na webu“. Pořadí lze měnit přetažením.'
+                required: false
+                fields:
+                  - { label: Název platformy, name: nazev, widget: string }
+                  - { label: Adresa (URL), name: url, widget: string, required: false, hint: 'Odkaz na album, např. https://open.spotify.com/album/…' }
+                  - { label: Zobrazit na webu, name: zobrazit, widget: boolean, default: true }
+              - { label: Poznámka pod odkazy, name: poznamka, widget: string, required: false }
+
+          - label: Kniha pomáhá
+            name: pomoc
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Zobrazit sekci, name: zobrazit, widget: boolean, default: true }
+              - { label: Nadpis, name: nadpis, widget: string }
+              - { label: Zvýrazněné číslo, name: cislo, widget: string, required: false, hint: 'Např. 10 %' }
+              - { label: Text, name: text, widget: markdown, buttons: [bold, italic, link], editor_components: [] }
+              - label: Odkaz (nepovinný)
+                name: odkaz
+                widget: object
+                required: false
+                fields:
+                  - { label: Text odkazu, name: text, widget: string, required: false }
+                  - { label: Adresa (URL), name: url, widget: string, required: false }
+              - label: Transparentní účet
+                name: ucet
+                widget: object
+                required: false
+                fields:
+                  - { label: Název účtu, name: nazev, widget: string, required: false }
+                  - { label: Číslo účtu, name: cislo, widget: string, required: false, hint: 'Např. 131-3221020287/0100' }
+                  - { label: IBAN, name: iban, widget: string, required: false, hint: 'Z IBANu se vytvoří QR kód pro platbu.' }
+                  - { label: Majitel účtu, name: majitel, widget: string, required: false }
+                  - { label: Zobrazit QR kód pro platbu, name: qr, widget: boolean, default: true }
+
+          - label: Recenze
+            name: recenze
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Zobrazit sekci, name: zobrazit, widget: boolean, default: false, hint: 'Zapněte, až bude aspoň jedna recenze.' }
+              - { label: Nadpis, name: nadpis, widget: string, default: Napsali o knize }
+              - label: Recenze
+                name: polozky
+                widget: list
+                label_singular: recenzi
+                summary: '{{autor}} – {{zdroj}}'
+                required: false
+                fields:
+                  - { label: Citace nebo krátký úryvek, name: citat, widget: text, hint: 'U cizích textů jen krátký úryvek, celý text nechte na odkazu.' }
+                  - { label: Autor recenze, name: autor, widget: string, required: false }
+                  - { label: Médium / zdroj, name: zdroj, widget: string, required: false, hint: 'Např. iRozhlas, Lidové noviny, Databáze knih' }
+                  - { label: Odkaz na celou recenzi, name: url, widget: string, required: false }
+
+          - label: Slovo autora / O autorovi
+            name: autor
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Zobrazit sekci, name: zobrazit, widget: boolean, default: true }
+              - { label: Nadpis, name: nadpis, widget: string }
+              - { label: Text, name: text, widget: markdown, buttons: [bold, italic, link], editor_components: [] }
+              - { label: Fotografie, name: foto, widget: image, required: false, choose_url: false }
+              - { label: Popis fotografie, name: foto_alt, widget: string, required: false }
+
+          - label: Nakladatelství
+            name: vydavatelstvi
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Nadpis, name: nadpis, widget: string }
+              - { label: Text, name: text, widget: markdown, buttons: [bold, italic, link], editor_components: [] }
+
+          - label: Kontakt
+            name: kontakt
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Nadpis, name: nadpis, widget: string }
+              - { label: Název nakladatelství / jméno, name: nazev, widget: string }
+              - { label: Adresa, name: adresa, widget: text, required: false }
+              - { label: IČO, name: ico, widget: string, required: false }
+              - { label: E-mail, name: email, widget: string, required: false }
+              - { label: Telefon, name: telefon, widget: string, required: false }
+              - label: Formulář
+                name: formular
+                widget: object
+                required: false
+                fields:
+                  - { label: Zobrazit formulář, name: zobrazit, widget: boolean, default: true }
+                  - { label: Nadpis, name: nadpis, widget: string, required: false }
+                  - { label: Úvodní text, name: text, widget: text, required: false }
+                  - { label: Přístupový klíč Web3Forms, name: klic, widget: string, required: false, hint: 'Klíč z web3forms.com vydaný pro e-mail, kam mají zprávy chodit. Bez klíče formulář neodesílá.' }
+                  - { label: Text pod formulářem (ochrana údajů), name: souhlas, widget: text, required: false }
+
+          - label: Patička
+            name: paticka
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Doplňující text, name: text, widget: string, required: false }
+              - label: Tiráž
+                name: tiraz
+                widget: list
+                label_singular: řádek
+                summary: '{{nazev}}: {{hodnota}}'
+                required: false
+                fields:
+                  - { label: Název, name: nazev, widget: string }
+                  - { label: Hodnota, name: hodnota, widget: string }
+
+          - label: Vyhledávače a sdílení
+            name: seo
+            widget: object
+            collapsed: true
+            fields:
+              - { label: Titulek stránky, name: title, widget: string, hint: 'Zobrazí se v záložce prohlížeče a ve výsledcích Googlu.' }
+              - { label: Popis stránky, name: description, widget: text, hint: 'Ideálně do 160 znaků.' }
+              - { label: Obrázek pro sdílení, name: og_image, widget: image, required: false, choose_url: false, hint: 'Zobrazí se při sdílení na Facebooku a v aplikacích. Ideálně 1200 × 630 px. Prázdné = použije se obálka.' }

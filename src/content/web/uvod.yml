@@ -1,0 +1,175 @@
+seo:
+  title: Adventní povídky – František Kreuzmann | Vydavatelství J+FK
+  description: 24 adventních povídek Františka Kreuzmanna s ilustracemi Petra Herolda a vlastní hudbou. 10 % z ceny každého výtisku jde na léčbu Alfreda Strejčka.
+hero:
+  nadtitul: Vydavatelství J+FK představuje
+  nazev: Adventní povídky
+  autor: František Kreuzmann
+  podtitul: Nová česká kniha 24 adventních povídek s ilustracemi Petra Herolda a hudbou nahranou exkluzivně pro tuto knihu.
+  obalka: /src/assets/uploads/obalka-predni.jpg
+  obalka_alt: Kniha Adventní povídky v modrém přebalu s ilustrací Petra Herolda
+  tlacitko: Jak knihu získat
+  cenovka:
+    zobrazit: true
+    cena: '550'
+    puvodni: ''
+    text: ''
+kniha:
+  nadpis: O knize
+  text: |-
+    Kniha přináší příběhy úsměvné, dojemné i k zamyšlení. Některé autor sám prožil, jiné mu svěřili lidé, které v životě potkal, a o další se postarala fantazie. Povídky doplňují originální ilustrace výtvarníka Petra Herolda, kreslené převážně perem.
+
+    Atmosféru příběhů obohatí hudební doprovod v podobě alba nahraného exkluzivně pro tuto příležitost. Jak na to, najdete v knize.
+
+    Kniha vám může zpříjemnit předvánoční čas a stát se osobním vánočním dárkem pro rodinu nebo přátele.
+  foto: /src/assets/uploads/kniha-otevrena.jpg
+  foto_alt: Otevřená kniha s textem povídky a celostránkovou ilustrací
+  parametry:
+    - nazev: Autor
+      hodnota: František Kreuzmann
+    - nazev: Ilustrace
+      hodnota: Petr Herold
+    - nazev: Obsah
+      hodnota: 24 adventních a vánočních povídek
+    - nazev: Rozsah
+      hodnota: 154 stran
+    - nazev: Formát
+      hodnota: 16 × 23 cm
+    - nazev: Vazba
+      hodnota: šitá pevná, potažená plátnem se slepou ražbou
+    - nazev: Vydání
+      hodnota: 1. vydání, Praha 2026
+    - nazev: Vydalo
+      hodnota: Jana Kreuzmannová – J+FK
+    - nazev: ISBN
+      hodnota: 978-80-910092-0-1
+    - nazev: Cena
+      hodnota: 550 Kč
+  koupit_nadpis: Jak knihu získat
+  koupit_text: |-
+    Knihu si můžete objednat přímo u vydavatelství přes formulář, e-mailem nebo telefonicky. Cena knihy je **550 Kč**.
+
+    **Koupí knihy získáte:**
+
+    - možnost zpříjemnit si předvánoční čas,
+    - dárek pro své blízké nebo přátele,
+    - odkaz na album s hudebním doprovodem,
+    - a připojíte se k podpoře léčebných výloh Alfreda Strejčka.
+  koupit_odkazy:
+    - text: Objednat knihu
+      url: '#objednat'
+galerie:
+  zobrazit: true
+  nadpis: ''
+  fotky:
+    - foto: /src/assets/uploads/knihy-vejir-3.jpg
+      alt: Výtisky knihy Adventní povídky rozložené do vějíře
+    - foto: /src/assets/uploads/platenna-vazba.jpg
+      alt: Plátěná vazba se slepou ražbou názvu a lucerny
+    - foto: /src/assets/uploads/prebal-detail.jpg
+      alt: Detail přebalu s ilustrací muže pod lucernou
+    - foto: /src/assets/uploads/hrbety-knih.jpg
+      alt: Hřbety knih s logem J+FK
+    - foto: /src/assets/uploads/kniha-v-prebalu.jpg
+      alt: Kniha v přebalu
+    - foto: /src/assets/uploads/knihy-vejir-2.jpg
+      alt: Šité hřbety knih s kapitálkem
+    - foto: /src/assets/uploads/knihy-vejir.jpg
+      alt: Stoh knih Adventní povídky
+soundtrack:
+  nadpis: Každá povídka má svou hudbu
+  text: |-
+    Ke každé povídce vznikla vlastní hudební skladba, kterou pro čtenáře nahráli skvělí muzikanti. Album je dalším obohacením knihy a připomínkou doby, kdy se v mnoha rodinách muzicírovalo.
+
+    Pusťte si skladbu ke každému příběhu a nechte adventní večery znít.
+  foto_alt: ''
+  interpreti:
+    - jmeno: Michal Kostiuk
+      role: ''
+    - jmeno: Alena Rokos Veretina
+      role: ''
+    - jmeno: Jarmila Kostiuková
+      role: ''
+  poslech_nadpis: Poslechněte si album
+  platformy:
+    - nazev: Všechny platformy (iMusician)
+      url: https://music.imusician.pro/a/ysSWiN21/
+      zobrazit: true
+    - nazev: Spotify
+      url: ''
+      zobrazit: false
+    - nazev: Apple Music
+      url: ''
+      zobrazit: false
+    - nazev: Tidal
+      url: ''
+      zobrazit: false
+    - nazev: Amazon Music
+      url: ''
+      zobrazit: false
+  poznamka: ''
+pomoc:
+  zobrazit: true
+  nadpis: Kniha, která pomáhá
+  cislo: 10 %
+  text: |-
+    Koupí knihy se připojíte k podpoře herce, recitátora a úžasného člověka **Alfreda Strejčka**, který před devíti lety téměř úplně ochrnul. Díky své neuvěřitelně silné vůli a vytrvalosti lékařů žije a dál vystupuje, i když na vozíku a se značným omezením pohybu.
+
+    Léčba je však velmi nákladná, a tak vznikla sbírka na jeho léčebné výlohy. Z ceny každého výtisku odešleme 10 % na jeho transparentní účet. Přispět můžete i přímo.
+  odkaz:
+    text: Přehled transparentního účtu
+    url: https://www.kb.cz/cs/transparentni-ucty/131-3221020287
+  ucet:
+    nazev: Léčebné výlohy pro Alfreda Strejčka
+    cislo: 131-3221020287/0100
+    iban: CZ10 0100 0001 3132 2102 0287
+    majitel: Jitka Molavcová
+    qr: true
+recenze:
+  zobrazit: false
+  nadpis: Napsali o knize
+  polozky: []
+autor:
+  zobrazit: true
+  nadpis: Kniha s příběhem
+  text: |-
+    Milí čtenáři, dostává se vám do rukou kniha, na které jsme s láskou pracovali a která má svůj vlastní příběh. Chceme, aby nejen potěšila a pobavila, ale i inspirovala. A také, aby pomáhala.
+
+    Je udělána postaru, s pevnou vazbou potaženou plátnem se slepou ražbou a s ilustracemi kreslenými převážně perem. Takové knihy se dnes dělají opravdu zřídka. Pevná vazba pro nás symbolizuje pevný svazek, rodinu, která by měla držet pospolu. Plátno představuje ubrus, který se dával na stůl ve svátečních časech a u kterého se rodina scházela.
+
+    Dřív se lidé během adventu scházeli a vyprávěli si příběhy. Zkusme si při čtení znovu uvědomit, jak je krásné být s někým, někoho mít, někomu naslouchat. A ilustrace nám připomenou, jak je důležité umět se dívat na věci a lidi kolem sebe s pochopením a zájmem.
+
+    *František Kreuzmann*
+  foto: /src/assets/uploads/platenna-vazba-detail.jpg
+  foto_alt: Detail slepé ražby na plátěné vazbě
+vydavatelstvi:
+  nadpis: Vydavatelství J+FK
+  text: Adventní povídky jsou první knihou Františka Kreuzmanna. Vydává ji vydavatelství Jany Kreuzmannové J+FK.
+kontakt:
+  nadpis: Kontakt a objednávky
+  nazev: Jana Kreuzmannová – J+FK
+  adresa: |-
+    Husníkova 2079/4
+    Praha 13 – Stodůlky
+  ico: ''
+  email: JplusFK@gmail.com
+  telefon: +420 732 767 305
+  formular:
+    zobrazit: true
+    nadpis: Napište nám
+    text: Máte dotaz, nebo si chcete knihu objednat? Vyplňte formulář a ozveme se vám.
+    klic: ''
+    souhlas: Údaje z formuláře použijeme jen k odpovědi na vaši zprávu nebo k vyřízení objednávky.
+paticka:
+  text: Všechna práva vyhrazena.
+  tiraz:
+    - nazev: Text
+      hodnota: © František Kreuzmann, 2026
+    - nazev: Obálka a ilustrace
+      hodnota: © Petr Herold, 2026
+    - nazev: Jazyková korektura
+      hodnota: Marek Chvátal
+    - nazev: Skeny, grafická úprava a sazba
+      hodnota: Dominik Herr
+    - nazev: Tisk
+      hodnota: Finidr, s.r.o., Český Těšín

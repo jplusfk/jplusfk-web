@@ -1,0 +1,353 @@
+---
+import { getEntry } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import { marked } from 'marked';
+import QRCode from 'qrcode';
+import '@fontsource-variable/eb-garamond';
+import '@fontsource-variable/source-sans-3';
+import '../styles/web.css';
+import logo from '../assets/logo.svg?raw';
+import Formular from '../components/Formular.astro';
+
+const entry = await getEntry('web', 'uvod');
+if (!entry) throw new Error('Chybí obsah src/content/web/uvod.yml');
+const d = entry.data;
+
+const md = (s?: string) => (s ? (marked.parse(s, { async: false }) as string) : '');
+const ext = (url: string) => /^https?:\/\//.test(url);
+
+const platformy = d.soundtrack.platformy.filter((p) => p.zobrazit && p.url.trim());
+const ogSource = d.seo.og_image ?? d.hero.obalka;
+const og = ogSource ? await getImage({ src: ogSource, width: 1200, format: 'jpeg' }) : undefined;
+const ogUrl = og ? new URL(og.src, Astro.site).href : undefined;
+const year = new Date().getFullYear();
+// QR Platba (formát SPD, kterému rozumí české bankovní aplikace) z IBANu transparentního účtu
+const ucet = d.pomoc.ucet;
+const iban = ucet?.iban?.replace(/\s/g, '').toUpperCase();
+const qrSvg = iban && ucet?.qr
+  ? await QRCode.toString(`SPD*1.0*ACC:${iban}*CC:CZK*MSG:Pro Alfreda Strejcka`, { type: 'svg', margin: 1, errorCorrectionLevel: 'M', color: { dark: '#003861', light: '#ffffff' } })
+  : undefined;
+const cenovka = d.hero.cenovka?.zobrazit && d.hero.cenovka.cena ? { ...d.hero.cenovka, cena: d.hero.cenovka.cena.replace(/\s*Kč\s*$/i, '') } : undefined;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Book',
+  name: d.hero.nazev,
+  author: { '@type': 'Person', name: d.hero.autor },
+  publisher: { '@type': 'Organization', name: d.kontakt.nazev, url: Astro.site?.href },
+  inLanguage: 'cs',
+  ...(() => {
+    const cena = cenovka?.cena.replace(/\s/g, '').match(/\d+/)?.[0] ?? d.kniha.parametry.find((p) => p.nazev.toLowerCase().includes('cena'))?.hodnota.replace(/\s/g, '').match(/\d+/)?.[0];
+    return cena ? { offers: { '@type': 'Offer', price: cena, priceCurrency: 'CZK', availability: 'https://schema.org/InStock' } } : {};
+  })(),
+  ...(ogUrl ? { image: ogUrl } : {}),
+  ...(d.kniha.parametry.find((p) => p.nazev.toLowerCase() === 'isbn' && !p.hodnota.includes('['))
+    ? { isbn: d.kniha.parametry.find((p) => p.nazev.toLowerCase() === 'isbn')!.hodnota }
+    : {}),
+};
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{d.seo.title}</title>
+    <meta name="description" content={d.seo.description} />
+    <link rel="canonical" href={Astro.site?.href} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f4ecdf" />
+    <meta property="og:type" content="book" />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:title" content={d.seo.title} />
+    <meta property="og:description" content={d.seo.description} />
+    <meta property="og:url" content={Astro.site?.href} />
+    {ogUrl && <meta property="og:image" content={ogUrl} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip" href="#obsah">Přeskočit na obsah</a>
+
+    <header class="topbar">
+      <div class="wrap topbar__in">
+        <a class="logo" href="/" aria-label={`${d.kontakt.nazev}, úvod`} set:html={logo} />
+        <nav aria-label="Hlavní">
+          <a href="#kniha">O knize</a>
+          <a href="#soundtrack">Soundtrack</a>
+          {d.recenze.zobrazit && d.recenze.polozky.length > 0 && <a href="#recenze">Recenze</a>}
+          {d.pomoc.zobrazit && <a href="#pomaha">Pomáhá</a>}
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="obsah">
+      <section class="hero">
+        <div class="wrap hero__in">
+          <div class="hero__text">
+            {d.hero.nadtitul && <p class="eyebrow">{d.hero.nadtitul}</p>}
+            <h1>{d.hero.nazev}</h1>
+            <p class="hero__author">{d.hero.autor}</p>
+            {d.hero.podtitul && <p class="hero__sub">{d.hero.podtitul}</p>}
+            <div class="actions">
+              {d.hero.tlacitko && <a class="btn btn--primary" href="#koupit">{d.hero.tlacitko}</a>}
+              <a class="btn btn--ghost" href="#soundtrack">Poslechnout soundtrack</a>
+            </div>
+          </div>
+          <div class="hero__cover">
+            {d.hero.obalka ? (
+              <Image
+                src={d.hero.obalka}
+                alt={d.hero.obalka_alt}
+                widths={[400, 640, 900]}
+                sizes="(min-width: 56rem) 26rem, 70vw"
+                loading="eager"
+                fetchpriority="high"
+              />
+            ) : (
+              <div class="cover-placeholder" role="img" aria-label={d.hero.obalka_alt || d.hero.nazev}>
+                <span class="cover-placeholder__author">{d.hero.autor}</span>
+                <span class="cover-placeholder__title">{d.hero.nazev}</span>
+                <span class="cover-placeholder__pub" set:html={logo} />
+              </div>
+            )}
+            {cenovka && (
+              <a class="badge" href="#koupit" aria-label={`Cena ${cenovka.cena} Kč${cenovka.puvodni ? `, původně ${cenovka.puvodni}` : ''}. ${cenovka.text ?? ''}`}>
+                <svg viewBox="0 0 200 200" aria-hidden="true">
+                  <circle cx="100" cy="100" r="99" class="badge__bg" />
+                  <path id="badge-arc" d="M 41.3 158.7 A 83 83 0 1 1 158.7 158.7" fill="none" />
+                  {cenovka.text && (
+                    <text class="badge__ring"><textPath href="#badge-arc" startOffset="50%" text-anchor="middle">{cenovka.text}</textPath></text>
+                  )}
+                  <g transform={`rotate(-17 100 ${cenovka.text || cenovka.puvodni ? 105 : 100})`}>
+                    <text class="badge__price" x="100" y={cenovka.text || cenovka.puvodni ? 121 : 122} text-anchor="middle">{cenovka.cena}<tspan class="badge__cur" dx="4" dy="-3">Kč</tspan></text>
+                  </g>
+                  {cenovka.puvodni && <text class="badge__old" x="100" y="158" text-anchor="middle">{cenovka.puvodni}</text>}
+                  {cenovka.puvodni && <line x1="66" y1="153" x2="134" y2="149" class="badge__strike" />}
+                </svg>
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section id="kniha" class="section">
+        <div class="wrap split">
+          <div>
+            <h2>{d.kniha.nadpis}</h2>
+            <div class="prose" set:html={md(d.kniha.text)} />
+            {d.kniha.foto && (
+              <Image class="photo" src={d.kniha.foto} alt={d.kniha.foto_alt} widths={[600, 1000]} sizes="(min-width: 56rem) 36rem, 100vw" />
+            )}
+          </div>
+          <aside class="card">
+            {d.kniha.parametry.length > 0 && (
+              <dl class="facts">
+                {d.kniha.parametry.map((p) => (
+                  <div>
+                    <dt>{p.nazev}</dt>
+                    <dd>{p.hodnota}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+            {d.kniha.koupit_nadpis && <h3 id="koupit">{d.kniha.koupit_nadpis}</h3>}
+            {d.kniha.koupit_text && <div class="prose prose--small" set:html={md(d.kniha.koupit_text)} />}
+            {d.kniha.koupit_odkazy.length > 0 && (
+              <div class="actions">
+                {d.kniha.koupit_odkazy.map((o) => (
+                  <a class="btn btn--primary" href={o.url} {...(ext(o.url) ? { target: '_blank', rel: 'noopener' } : {})}>{o.text}</a>
+                ))}
+              </div>
+            )}
+          </aside>
+        </div>
+      </section>
+
+      {d.galerie.zobrazit && d.galerie.fotky.length > 0 && (
+        <section class="gallery" aria-label={d.galerie.nadpis || 'Fotografie knihy'}>
+          <div class="wrap gallery__head">
+            {d.galerie.nadpis ? <h2>{d.galerie.nadpis}</h2> : <span />}
+            <div class="gallery__nav">
+              <button type="button" class="gallery__btn" data-dir="-1" aria-label="Předchozí fotka">←</button>
+              <button type="button" class="gallery__btn" data-dir="1" aria-label="Další fotka">→</button>
+            </div>
+          </div>
+          <ul class="gallery__track" tabindex="0" aria-label="Galerie, posouvejte do stran">
+            {d.galerie.fotky.map((f, i) => (
+              <li class="gallery__slide">
+                <Image src={f.foto} alt={f.alt} widths={[400, 700, 1100]} sizes="(min-width: 56rem) 34rem, 80vw" loading={i < 3 ? 'eager' : 'lazy'} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {d.autor.zobrazit && (
+        <section id="autor" class="section section--tint letter">
+          <div class={`wrap ${d.autor.foto ? 'split split--portrait' : 'narrow'}`}>
+            {d.autor.foto && (
+              <Image class="portrait" src={d.autor.foto} alt={d.autor.foto_alt} widths={[400, 700]} sizes="(min-width: 56rem) 20rem, 80vw" />
+            )}
+            <div>
+              <h2>{d.autor.nadpis}</h2>
+              <div class="prose" set:html={md(d.autor.text)} />
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section id="soundtrack" class="section section--dark">
+        <div class="wrap split">
+          <div>
+            <h2>{d.soundtrack.nadpis}</h2>
+            <div class="prose" set:html={md(d.soundtrack.text)} />
+            {d.soundtrack.interpreti.length > 0 && (
+              <ul class="performers">
+                {d.soundtrack.interpreti.map((i) => (
+                  <li>
+                    <span>{i.jmeno}</span>
+                    {i.role && <span class="performers__role">{i.role}</span>}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {d.soundtrack.foto && (
+              <Image class="photo" src={d.soundtrack.foto} alt={d.soundtrack.foto_alt} widths={[600, 1000]} sizes="(min-width: 56rem) 36rem, 100vw" />
+            )}
+          </div>
+          {platformy.length > 0 && (
+            <div class="listen">
+              {d.soundtrack.poslech_nadpis && <h3>{d.soundtrack.poslech_nadpis}</h3>}
+              <ul class="listen__list">
+                {platformy.map((p) => (
+                  <li>
+                    <a href={p.url} target="_blank" rel="noopener">
+                      <span>{p.nazev}</span>
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              {d.soundtrack.poznamka && <p class="listen__note">{d.soundtrack.poznamka}</p>}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {d.recenze.zobrazit && d.recenze.polozky.length > 0 && (
+        <section id="recenze" class="section reviews">
+          <div class="wrap">
+            <h2>{d.recenze.nadpis}</h2>
+            <ul class="reviews__list">
+              {d.recenze.polozky.map((r) => (
+                <li>
+                  <blockquote class="review">
+                    <p class="review__quote">{r.citat}</p>
+                    <footer class="review__by">
+                      {r.autor && <span class="review__author">{r.autor}</span>}
+                      {r.zdroj && (r.url
+                        ? <a href={r.url} target="_blank" rel="noopener">{r.zdroj}</a>
+                        : <span>{r.zdroj}</span>)}
+                    </footer>
+                  </blockquote>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
+      {d.pomoc.zobrazit && (
+        <section id="pomaha" class="section help">
+          <div class="wrap help__in">
+            {d.pomoc.cislo && <p class="help__num" aria-hidden="true">{d.pomoc.cislo}</p>}
+            <div>
+              <h2>{d.pomoc.nadpis}</h2>
+              <div class="prose" set:html={md(d.pomoc.text)} />
+              {d.pomoc.odkaz?.url && (
+                <a class="btn btn--ghost" href={d.pomoc.odkaz.url} {...(ext(d.pomoc.odkaz.url) ? { target: '_blank', rel: 'noopener' } : {})}>
+                  {d.pomoc.odkaz.text || 'Více informací'}
+                </a>
+              )}
+              {ucet && (ucet.cislo || iban) && (
+                <div class="account">
+                  <dl class="account__data">
+                    {ucet.nazev && (<div><dt>Účet</dt><dd>{ucet.nazev}</dd></div>)}
+                    {ucet.cislo && (<div><dt>Číslo účtu</dt><dd class="account__num">{ucet.cislo}</dd></div>)}
+                    {ucet.iban && (<div><dt>IBAN</dt><dd>{ucet.iban}</dd></div>)}
+                    {ucet.majitel && (<div><dt>Majitel účtu</dt><dd>{ucet.majitel}</dd></div>)}
+                  </dl>
+                  {qrSvg && (
+                    <figure class="account__qr">
+                      <div set:html={qrSvg} role="img" aria-label="QR kód pro platbu na transparentní účet" />
+                      <figcaption>QR Platba</figcaption>
+                    </figure>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
+
+      <section id="kontakt" class="section section--tint">
+        <div class="wrap split split--contact">
+          <div>
+            <h2>{d.vydavatelstvi.nadpis}</h2>
+            <div class="prose" set:html={md(d.vydavatelstvi.text)} />
+          <address class="card contact">
+            <h3>{d.kontakt.nadpis}</h3>
+            <p class="contact__name">{d.kontakt.nazev}</p>
+            {d.kontakt.adresa && <p class="contact__addr">{d.kontakt.adresa}</p>}
+            {d.kontakt.ico && <p>IČO: {d.kontakt.ico}</p>}
+            {d.kontakt.email && <p><a href={`mailto:${d.kontakt.email}`}>{d.kontakt.email}</a></p>}
+            {d.kontakt.telefon && <p><a href={`tel:${d.kontakt.telefon.replace(/\s+/g, '')}`}>{d.kontakt.telefon}</a></p>}
+          </address>
+          </div>
+          {d.kontakt.formular?.zobrazit && (
+            <div class="card form-card">
+              {d.kontakt.formular.nadpis && <h2 class="form-card__title">{d.kontakt.formular.nadpis}</h2>}
+              {d.kontakt.formular.text && <p class="form-card__intro">{d.kontakt.formular.text}</p>}
+              <Formular klic={d.kontakt.formular.klic} nazevWebu={d.kontakt.nazev} souhlas={d.kontakt.formular.souhlas} />
+            </div>
+          )}
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        {d.paticka.tiraz.length > 0 && (
+          <dl class="colophon">
+            {d.paticka.tiraz.map((t) => (
+              <div>
+                <dt>{t.nazev}</dt>
+                <dd>{t.hodnota}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <div class="footer__in">
+          <p>© {year} {d.kontakt.nazev}</p>
+          {d.paticka.text && <p>{d.paticka.text}</p>}
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll<HTMLElement>('.gallery').forEach((g) => {
+        const track = g.querySelector<HTMLElement>('.gallery__track');
+        if (!track) return;
+        g.querySelectorAll<HTMLButtonElement>('.gallery__btn').forEach((b) =>
+          b.addEventListener('click', () => {
+            const slide = track.querySelector<HTMLElement>('.gallery__slide');
+            const step = slide ? slide.offsetWidth + 16 : track.clientWidth * 0.8;
+            track.scrollBy({ left: Number(b.dataset.dir) * step, behavior: 'smooth' });
+          }),
+        );
+      });
+    </script>
+  </body>
+</html>

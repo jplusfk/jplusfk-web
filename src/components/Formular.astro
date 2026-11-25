@@ -1,0 +1,136 @@
+---
+// Kontaktní formulář: dotaz nebo objednávka knihy.
+// Zprávy odesílá služba Web3Forms na e-mail, ke kterému byl vydán přístupový klíč (JplusFK@gmail.com).
+// Ochrana proti spamu: skryté pole „botcheck“ + hCaptcha přes skript Web3Forms.
+// Skript hCaptchy se načte až ve chvíli, kdy návštěvník začne formulář vyplňovat.
+interface Props {
+  klic?: string;
+  nazevWebu: string;
+  souhlas?: string;
+}
+const { klic, nazevWebu, souhlas } = Astro.props;
+---
+
+{!klic && <p class="form-notice">Formulář se zapne po vložení přístupového klíče Web3Forms v administraci (Kontakt → Formulář).</p>}
+<form class="form" id="formular" method="POST" action="https://api.web3forms.com/submit" data-site={nazevWebu}>
+  <span id="objednat" class="anchor" aria-hidden="true"></span>
+  <input type="hidden" name="access_key" value={klic} />
+  <input type="hidden" name="subject" value={`Dotaz z webu ${nazevWebu}`} />
+  <input type="hidden" name="from_name" value={`Web ${nazevWebu}`} />
+  <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+  <fieldset class="form__type">
+    <legend>Co potřebujete?</legend>
+    <label><input type="radio" name="typ" value="Dotaz" checked /> Mám dotaz</label>
+    <label><input type="radio" name="typ" value="Objednávka knihy" /> Chci objednat knihu</label>
+  </fieldset>
+
+  <div class="form__row">
+    <div class="field"><label for="f-name">Jméno a příjmení</label><input id="f-name" name="name" required autocomplete="name" /></div>
+    <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" required autocomplete="email" /></div>
+  </div>
+  <div class="field"><label for="f-phone">Telefon <span class="opt">(nepovinné)</span></label><input id="f-phone" name="telefon" type="tel" autocomplete="tel" /></div>
+
+  <div class="form__order" data-order hidden>
+    <div class="form__row form__row--narrow">
+      <div class="field"><label for="f-count">Počet výtisků</label><input id="f-count" name="pocet_vytisku" type="number" min="1" max="99" value="1" inputmode="numeric" /></div>
+    </div>
+    <div class="field"><label for="f-address">Doručovací adresa</label><textarea id="f-address" name="dorucovaci_adresa" rows="3" autocomplete="street-address"></textarea></div>
+  </div>
+
+  <div class="field"><label for="f-message">Zpráva <span class="opt" data-msg-opt hidden>(nepovinné)</span></label><textarea id="f-message" name="message" rows="5" required></textarea></div>
+
+  <div class="h-captcha" data-captcha="true" data-lang="cs"></div>
+  <p class="form__error" role="alert" hidden></p>
+
+  {souhlas && <p class="form__small">{souhlas}</p>}
+  <button class="btn btn--primary" type="submit" disabled={!klic}>Odeslat</button>
+</form>
+<div class="form__thanks" role="status" hidden>
+  <h3>Děkujeme za zprávu</h3>
+  <p>Vaši zprávu jsme dostali a ozveme se vám co nejdříve na uvedený e-mail.</p>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#formular');
+  if (form) {
+    const order = form.querySelector<HTMLElement>('[data-order]')!;
+    const msg = form.querySelector<HTMLTextAreaElement>('#f-message')!;
+    const msgOpt = form.querySelector<HTMLElement>('[data-msg-opt]')!;
+    const address = form.querySelector<HTMLTextAreaElement>('#f-address')!;
+    const err = form.querySelector<HTMLElement>('.form__error')!;
+    const thanks = document.querySelector<HTMLElement>('.form__thanks')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+
+    // Dotaz × objednávka: u objednávky se ukáže počet výtisků a adresa, zpráva je nepovinná
+    const sync = () => {
+      const isOrder = form.querySelector<HTMLInputElement>('input[name=typ]:checked')?.value !== 'Dotaz';
+      order.hidden = !isOrder;
+      address.required = isOrder;
+      msg.required = !isOrder;
+      msgOpt.hidden = !isOrder;
+      form.querySelector<HTMLInputElement>('input[name=subject]')!.value = `${isOrder ? 'Objednávka knihy' : 'Dotaz'} z webu ${form.dataset.site}`;
+    };
+    form.querySelectorAll('input[name=typ]').forEach((r) => r.addEventListener('change', sync));
+
+    // Odkazy na #objednat předvyplní objednávku
+    const fromHash = () => {
+      if (location.hash === '#objednat') {
+        form.querySelector<HTMLInputElement>('input[value="Objednávka knihy"]')!.checked = true;
+        sync();
+      }
+    };
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
+
+    // hCaptcha se načte až při první interakci s formulářem
+    let loaded = false;
+    const loadCaptcha = () => {
+      if (loaded) return;
+      loaded = true;
+      const s = document.createElement('script');
+      s.src = 'https://web3forms.com/client/script.js';
+      s.async = true;
+      document.body.appendChild(s);
+    };
+    form.addEventListener('focusin', loadCaptcha, { once: true });
+    form.addEventListener('pointerdown', loadCaptcha, { once: true });
+
+    const showError = (text: string) => {
+      err.textContent = text;
+      err.hidden = false;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.hidden = true;
+      if (!form.reportValidity()) return;
+      const token = form.querySelector<HTMLTextAreaElement>('[name="h-captcha-response"]')?.value;
+      if (!token) {
+        loadCaptcha();
+        showError('Potvrďte prosím, že nejste robot (zaškrtněte políčko ověření).');
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = 'Odesílám…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.success) {
+          form.hidden = true;
+          thanks.hidden = false;
+          thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          showError(`Zprávu se nepodařilo odeslat${data.message ? ` (${data.message})` : ''}. Zkuste to prosím znovu, nebo napište přímo na e-mail.`);
+          // @ts-ignore – hCaptcha je globální objekt načtený skriptem Web3Forms
+          window.hcaptcha?.reset?.();
+        }
+      } catch {
+        showError('Zprávu se nepodařilo odeslat. Zkontrolujte připojení k internetu, nebo napište přímo na e-mail.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Odeslat';
+      }
+    });
+  }
+</script>
