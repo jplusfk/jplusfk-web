@@ -250,3 +250,37 @@ collections:
               - { label: Titulek stránky, name: title, widget: string, hint: 'Zobrazí se v záložce prohlížeče a ve výsledcích Googlu.' }
               - { label: Popis stránky, name: description, widget: text, hint: 'Ideálně do 160 znaků.' }
               - { label: Obrázek pro sdílení, name: og_image, widget: image, required: false, choose_url: false, hint: 'Zobrazí se při sdílení na Facebooku a v aplikacích. Ideálně 1200 × 630 px. Prázdné = použije se obálka.' }
+
+  - name: stranky
+    label: Právní informace
+    label_singular: stránku
+    icon: gavel
+    description: Podstránky odkázané v patičce webu.
+    files:
+      - name: obchodni-podminky
+        label: Obchodní podmínky
+        file: src/content/stranky/obchodni-podminky.md
+        fields:
+          - { label: Nadpis, name: title, widget: string }
+          - { label: Popis pro vyhledávače, name: popis, widget: string, required: false }
+          - { label: Platné od / poslední změna, name: aktualizace, widget: string, required: false, hint: 'Např. 26. 11. 2026' }
+          - { label: Pořadí v patičce, name: poradi, widget: number, value_type: int, default: 0 }
+          - { label: Text, name: body, widget: markdown }
+      - name: ochrana-osobnich-udaju
+        label: Ochrana osobních údajů
+        file: src/content/stranky/ochrana-osobnich-udaju.md
+        fields:
+          - { label: Nadpis, name: title, widget: string }
+          - { label: Popis pro vyhledávače, name: popis, widget: string, required: false }
+          - { label: Platné od / poslední změna, name: aktualizace, widget: string, required: false, hint: 'Např. 26. 11. 2026' }
+          - { label: Pořadí v patičce, name: poradi, widget: number, value_type: int, default: 0 }
+          - { label: Text, name: body, widget: markdown }
+      - name: cookies
+        label: Cookies
+        file: src/content/stranky/cookies.md
+        fields:
+          - { label: Nadpis, name: title, widget: string }
+          - { label: Popis pro vyhledávače, name: popis, widget: string, required: false }
+          - { label: Platné od / poslední změna, name: aktualizace, widget: string, required: false, hint: 'Např. 26. 11. 2026' }
+          - { label: Pořadí v patičce, name: poradi, widget: number, value_type: int, default: 0 }
+          - { label: Text, name: body, widget: markdown }
