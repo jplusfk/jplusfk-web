@@ -74,7 +74,7 @@ galerie:
     - foto: /src/assets/uploads/knihy-vejir.jpg
       alt: Stoh knih Adventní povídky
 soundtrack:
-  nadpis: Každá povídka má svou hudbu
+  nadpis: Každá povídka má svou melodii
   text: |-
     Ke každé povídce vznikla vlastní hudební skladba, kterou pro čtenáře nahráli skvělí muzikanti. Album je dalším obohacením knihy a připomínkou doby, kdy se v mnoha rodinách muzicírovalo.
 
@@ -83,28 +83,31 @@ soundtrack:
   foto_alt: ''
   interpreti:
     - jmeno: Michal Kostiuk
-      role: ''
+      role: klarinet, altsaxofon
     - jmeno: Alena Rokos Veretina
-      role: ''
+      role: klavír, klávesy
     - jmeno: Jarmila Kostiuková
-      role: ''
+      role: housle
   poslech_nadpis: Poslechněte si album
   platformy:
+    - nazev: Spotify
+      url: https://open.spotify.com/album/1h3PR340UNuzYbVXcqRisx
+      zobrazit: true
+    - nazev: Amazon Music
+      url: https://music.amazon.com/albums/B0HN51LPX4
+      zobrazit: true
+    - nazev: Tidal
+      url: https://tidal.com/album/adventn%C3%AD-pov%C3%ADdky/570095536
+      zobrazit: true
+    - nazev: Deezer
+      url: https://www.deezer.com/cs/album/1122246472
+      zobrazit: true
+    - nazev: Youtube Music
+      url: https://music.youtube.com/playlist?list=OLAK5uy_mHLSYKV5bcjvTQxmq1-0fgGDebDGu_oq4
+      zobrazit: true
     - nazev: Všechny platformy (iMusician)
       url: https://music.imusician.pro/a/ysSWiN21/
       zobrazit: true
-    - nazev: Spotify
-      url: ''
-      zobrazit: false
-    - nazev: Apple Music
-      url: ''
-      zobrazit: false
-    - nazev: Tidal
-      url: ''
-      zobrazit: false
-    - nazev: Amazon Music
-      url: ''
-      zobrazit: false
   poznamka: ''
 pomoc:
   zobrazit: true
