@@ -1,13 +1,13 @@
 ---
 title: Ochrana osobních údajů
 popis: Jak vydavatelství J+FK zpracovává osobní údaje z kontaktního formuláře a objednávek.
-aktualizace: '[DOPLNIT datum]'
+aktualizace: 25. 11. 2026
 poradi: 2
 ---
 
 ## Kdo údaje zpracovává
 
-Správcem osobních údajů je **Jana Kreuzmannová – J+FK**, se sídlem Husníkova 2079/4, Praha 13 – Stodůlky, IČO: [DOPLNIT IČO], e-mail [JplusFK@gmail.com](mailto:JplusFK@gmail.com).
+Správcem osobních údajů je **Jana Kreuzmannová – J+FK**, se sídlem Husníkova 2079/4, Praha 13 – Stodůlky, IČO: 69828041, e-mail [JplusFK@gmail.com](mailto:JplusFK@gmail.com).
 
 ## Jaké údaje a proč
 
