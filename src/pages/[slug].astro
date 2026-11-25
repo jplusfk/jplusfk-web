@@ -1,0 +1,28 @@
+---
+// Podstránky s právními informacemi ze složky src/content/stranky (upravují se v administraci).
+import { getCollection, getEntry, render } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const stranky = await getCollection('stranky');
+  return stranky.map((s) => ({ params: { slug: s.id }, props: { stranka: s } }));
+}
+
+const { stranka } = Astro.props;
+const { Content } = await render(stranka);
+const web = await getEntry('web', 'uvod');
+const nazev = web?.data.kontakt.nazev ?? '';
+---
+
+<Layout title={`${stranka.data.title} | ${nazev}`} description={stranka.data.popis} path={`/${stranka.id}/`}>
+  <article class="section legal">
+    <div class="narrow">
+      <p class="eyebrow"><a href="/">← Zpět na úvod</a></p>
+      <h1>{stranka.data.title}</h1>
+      {stranka.data.aktualizace && <p class="legal__updated">Platné od {stranka.data.aktualizace}</p>}
+      <div class="prose legal__body">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>

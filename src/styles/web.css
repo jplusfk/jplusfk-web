@@ -314,3 +314,27 @@ h3 { font-size: 1.45rem; }
 .footer p { margin: 0; }
 
 section[id], h3[id] { scroll-margin-top: 4.5rem; }
+
+/* Patička: údaje vydavatelství a právní odkazy */
+.footer__company { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 1.25rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgb(255 255 255 / 0.15); }
+.footer__company p { margin: 0; line-height: 1.55; }
+.footer__company strong { color: var(--white); font-weight: 600; }
+.footer a { color: var(--white); }
+.footer__legal { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; align-items: flex-start; }
+.footer__legal a { text-decoration: none; border-bottom: 1px solid rgb(255 255 255 / 0.35); }
+.footer__legal a:hover, .footer__legal a[aria-current] { border-bottom-color: var(--white); }
+
+/* Právní podstránky */
+.legal h1 { font-size: clamp(2.4rem, 4vw + 1rem, 3.4rem); margin-bottom: 0.2em; }
+.legal .eyebrow a { text-decoration: none; }
+.legal__updated { color: var(--ink-soft); margin: 0 0 2.5rem; }
+.legal__body { max-width: none; }
+.legal__body h2 { font-size: 1.6rem; margin: 2.25rem 0 0.6rem; }
+.legal__body h3 { font-size: 1.2rem; margin: 1.5rem 0 0.4rem; }
+.legal__body ol { padding-left: 1.3em; margin: 0 0 1em; }
+.legal__body li { margin-bottom: 0.4em; }
+.legal__body blockquote { margin: 1rem 0; padding: 1.25rem 1.5rem; background: var(--sky); border-radius: var(--radius); }
+.legal__body blockquote p { margin: 0 0 0.5em; }
+.legal__body table { width: 100%; border-collapse: collapse; font-size: 0.92em; margin: 0 0 1.25rem; display: block; overflow-x: auto; }
+.legal__body th, .legal__body td { text-align: left; vertical-align: top; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
+.legal__body th { color: var(--navy-deep); background: var(--sky); }

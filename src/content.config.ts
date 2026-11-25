@@ -130,4 +130,16 @@ const web = defineCollection({
     }),
 });
 
-export const collections = { web };
+// Podstránky s právními informacemi (obchodní podmínky, ochrana osobních údajů, cookies).
+// Název souboru = adresa stránky, např. src/content/stranky/cookies.md → /cookies/
+const stranky = defineCollection({
+  loader: glob({ pattern: '*.md', base: './src/content/stranky' }),
+  schema: z.object({
+    title: z.string(),
+    popis: z.string().optional(),
+    aktualizace: z.string().optional(),
+    poradi: z.number().default(0),
+  }),
+});
+
+export const collections = { web, stranky };

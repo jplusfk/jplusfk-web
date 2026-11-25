@@ -3,9 +3,7 @@ import { getEntry } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import { marked } from 'marked';
 import QRCode from 'qrcode';
-import '@fontsource-variable/eb-garamond';
-import '@fontsource-variable/source-sans-3';
-import '../styles/web.css';
+import Layout from '../layouts/Layout.astro';
 import logo from '../assets/logo.svg?raw';
 import Formular from '../components/Formular.astro';
 
@@ -20,7 +18,6 @@ const platformy = d.soundtrack.platformy.filter((p) => p.zobrazit && p.url.trim(
 const ogSource = d.seo.og_image ?? d.hero.obalka;
 const og = ogSource ? await getImage({ src: ogSource, width: 1200, format: 'jpeg' }) : undefined;
 const ogUrl = og ? new URL(og.src, Astro.site).href : undefined;
-const year = new Date().getFullYear();
 // QR Platba (formát SPD, kterému rozumí české bankovní aplikace) z IBANu transparentního účtu
 const ucet = d.pomoc.ucet;
 const iban = ucet?.iban?.replace(/\s/g, '').toUpperCase();
@@ -47,42 +44,7 @@ const jsonLd = {
 };
 ---
 
-<!doctype html>
-<html lang="cs">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{d.seo.title}</title>
-    <meta name="description" content={d.seo.description} />
-    <link rel="canonical" href={Astro.site?.href} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#f4ecdf" />
-    <meta property="og:type" content="book" />
-    <meta property="og:locale" content="cs_CZ" />
-    <meta property="og:title" content={d.seo.title} />
-    <meta property="og:description" content={d.seo.description} />
-    <meta property="og:url" content={Astro.site?.href} />
-    {ogUrl && <meta property="og:image" content={ogUrl} />}
-    <meta name="twitter:card" content="summary_large_image" />
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  </head>
-  <body>
-    <a class="skip" href="#obsah">Přeskočit na obsah</a>
-
-    <header class="topbar">
-      <div class="wrap topbar__in">
-        <a class="logo" href="/" aria-label={`${d.kontakt.nazev}, úvod`} set:html={logo} />
-        <nav aria-label="Hlavní">
-          <a href="#kniha">O knize</a>
-          <a href="#soundtrack">Soundtrack</a>
-          {d.recenze.zobrazit && d.recenze.polozky.length > 0 && <a href="#recenze">Recenze</a>}
-          {d.pomoc.zobrazit && <a href="#pomaha">Pomáhá</a>}
-          <a href="#kontakt">Kontakt</a>
-        </nav>
-      </div>
-    </header>
-
-    <main id="obsah">
+<Layout title={d.seo.title} description={d.seo.description} path="/" ogImage={ogUrl} ogType="book" jsonLd={jsonLd} home>
       <section class="hero">
         <div class="wrap hero__in">
           <div class="hero__text">
@@ -316,26 +278,6 @@ const jsonLd = {
           )}
         </div>
       </section>
-    </main>
-
-    <footer class="footer">
-      <div class="wrap">
-        {d.paticka.tiraz.length > 0 && (
-          <dl class="colophon">
-            {d.paticka.tiraz.map((t) => (
-              <div>
-                <dt>{t.nazev}</dt>
-                <dd>{t.hodnota}</dd>
-              </div>
-            ))}
-          </dl>
-        )}
-        <div class="footer__in">
-          <p>© {year} {d.kontakt.nazev}</p>
-          {d.paticka.text && <p>{d.paticka.text}</p>}
-        </div>
-      </div>
-    </footer>
     <script>
       document.querySelectorAll<HTMLElement>('.gallery').forEach((g) => {
         const track = g.querySelector<HTMLElement>('.gallery__track');
@@ -349,5 +291,4 @@ const jsonLd = {
         );
       });
     </script>
-  </body>
-</html>
+</Layout>

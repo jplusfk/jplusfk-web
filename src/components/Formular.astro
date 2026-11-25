@@ -9,6 +9,8 @@ interface Props {
   souhlas?: string;
 }
 const { klic, nazevWebu, souhlas } = Astro.props;
+import { marked } from 'marked';
+const souhlasHtml = souhlas ? (marked.parseInline(souhlas, { async: false }) as string) : '';
 ---
 
 {!klic && <p class="form-notice">Formulář se zapne po vložení přístupového klíče Web3Forms v administraci (Kontakt → Formulář).</p>}
@@ -43,7 +45,7 @@ const { klic, nazevWebu, souhlas } = Astro.props;
   <div class="h-captcha" data-captcha="true" data-lang="cs"></div>
   <p class="form__error" role="alert" hidden></p>
 
-  {souhlas && <p class="form__small">{souhlas}</p>}
+  {souhlasHtml && <p class="form__small" set:html={souhlasHtml} />}
   <button class="btn btn--primary" type="submit" disabled={!klic}>Odeslat</button>
 </form>
 <div class="form__thanks" role="status" hidden>

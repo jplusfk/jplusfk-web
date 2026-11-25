@@ -1,0 +1,105 @@
+---
+// Společná kostra všech stránek: hlavička, horní lišta s menu a patička s údaji vydavatelství.
+import { getEntry, getCollection } from 'astro:content';
+import '@fontsource-variable/eb-garamond';
+import '@fontsource-variable/source-sans-3';
+import '../styles/web.css';
+import logo from '../assets/logo.svg?raw';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** cesta stránky, např. "/" nebo "/cookies/" */
+  path: string;
+  ogImage?: string;
+  ogType?: string;
+  jsonLd?: object;
+  /** úvodní stránka: menu vede na kotvy na stejné stránce a v patičce je tiráž knihy */
+  home?: boolean;
+}
+const { title, description, path, ogImage, ogType = 'website', jsonLd, home = false } = Astro.props;
+
+const entry = await getEntry('web', 'uvod');
+if (!entry) throw new Error('Chybí obsah src/content/web/uvod.yml');
+const d = entry.data;
+const pravni = (await getCollection('stranky')).sort((a, b) => a.data.poradi - b.data.poradi);
+
+const canonical = new URL(path, Astro.site).href;
+const year = new Date().getFullYear();
+const a = (hash: string) => (home ? hash : `/${hash}`);
+const adresa = d.kontakt.adresa?.split('\n').map((r) => r.trim()).filter(Boolean).join(', ');
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="cs_CZ" />
+    <meta property="og:site_name" content={d.kontakt.nazev} />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip" href="#obsah">Přeskočit na obsah</a>
+
+    <header class="topbar">
+      <div class="wrap topbar__in">
+        <a class="logo" href="/" aria-label={`${d.kontakt.nazev}, úvod`} set:html={logo} />
+        <nav aria-label="Hlavní">
+          <a href={a('#kniha')}>O knize</a>
+          <a href={a('#soundtrack')}>Soundtrack</a>
+          {d.recenze.zobrazit && d.recenze.polozky.length > 0 && <a href={a('#recenze')}>Recenze</a>}
+          {d.pomoc.zobrazit && <a href={a('#pomaha')}>Pomáhá</a>}
+          <a href={a('#kontakt')}>Kontakt</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="obsah">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        {home && d.paticka.tiraz.length > 0 && (
+          <dl class="colophon">
+            {d.paticka.tiraz.map((t) => (
+              <div>
+                <dt>{t.nazev}</dt>
+                <dd>{t.hodnota}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <div class="footer__company">
+          <p>
+            <strong>{d.kontakt.nazev}</strong>
+            {adresa && <><br />Sídlo: {adresa}</>}
+            {d.kontakt.ico && <><br />IČO: {d.kontakt.ico}</>}
+            {d.kontakt.email && <><br /><a href={`mailto:${d.kontakt.email}`}>{d.kontakt.email}</a></>}
+          </p>
+          {pravni.length > 0 && (
+            <nav class="footer__legal" aria-label="Právní informace">
+              {pravni.map((s) => <a href={`/${s.id}/`} aria-current={path === `/${s.id}/` ? 'page' : undefined}>{s.data.title}</a>)}
+            </nav>
+          )}
+        </div>
+        <div class="footer__in">
+          <p>© {year} {d.kontakt.nazev}</p>
+          {d.paticka.text && <p>{d.paticka.text}</p>}
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
