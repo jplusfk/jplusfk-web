@@ -1,9 +1,6 @@
-seo:
-  title: Adventní povídky – František Kreuzmann | Vydavatelství J+FK
-  description: 24 adventních povídek Františka Kreuzmanna s ilustracemi Petra Herolda a vlastní hudbou. 10 % z ceny každého výtisku jde na léčbu Alfreda Strejčka.
 hero:
   nadtitul: Vydavatelství J+FK představuje
-  nazev: Adventní povídky
+  nazev: Adventní povídky.
   autor: František Kreuzmann
   podtitul: Nová česká kniha 24 adventních povídek s ilustracemi Petra Herolda a hudbou nahranou exkluzivně pro tuto knihu.
   obalka: /src/assets/uploads/obalka-predni.jpg
@@ -82,6 +79,7 @@ soundtrack:
     Ke každé povídce vznikla vlastní hudební skladba, kterou pro čtenáře nahráli skvělí muzikanti. Album je dalším obohacením knihy a připomínkou doby, kdy se v mnoha rodinách muzicírovalo.
 
     Pusťte si skladbu ke každému příběhu a nechte adventní večery znít.
+  foto: ''
   foto_alt: ''
   interpreti:
     - jmeno: Michal Kostiuk
@@ -173,3 +171,7 @@ paticka:
       hodnota: Dominik Herr
     - nazev: Tisk
       hodnota: Finidr, s.r.o., Český Těšín
+seo:
+  title: Adventní povídky – František Kreuzmann | Vydavatelství J+FK
+  description: 24 adventních povídek Františka Kreuzmanna s ilustracemi Petra Herolda a vlastní hudbou. 10 % z ceny každého výtisku jde na léčbu Alfreda Strejčka.
+  og_image: ''
