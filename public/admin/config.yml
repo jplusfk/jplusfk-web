@@ -3,7 +3,7 @@ backend:
   name: github
   repo: jplusfk/jplusfk-web           # uživatelské jméno nebo organizace na GitHubu / název repozitáře
   branch: main
-    base_url: https://sveltia-cms-auth.jplusfk.workers.dev    # adresa přihlašovacího Workeru
+  base_url: https://sveltia-cms-auth.jplusfk.workers.dev    # adresa přihlašovacího Workeru
   commit_messages:
     update: 'Úprava obsahu: {{slug}}'
     uploadMedia: 'Nahrán obrázek {{path}}'
