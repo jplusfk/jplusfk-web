@@ -1,7 +1,7 @@
 ---
 title: Cookies
 popis: Informace o používání cookies na webu jplusfk.cz.
-aktualizace: '[DOPLNIT datum]'
+aktualizace: 25. 11. 2026
 poradi: 3
 ---
 
