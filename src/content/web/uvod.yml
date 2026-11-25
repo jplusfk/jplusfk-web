@@ -156,7 +156,7 @@ kontakt:
     zobrazit: true
     nadpis: Napište nám
     text: Máte dotaz, nebo si chcete knihu objednat? Vyplňte formulář a ozveme se vám.
-    klic: ''
+    klic: b50af9ea-bba7-4212-b3b0-b03b96053a64
     souhlas: Údaje z formuláře použijeme jen k odpovědi na vaši zprávu nebo k vyřízení objednávky.
 paticka:
   text: Všechna práva vyhrazena.
