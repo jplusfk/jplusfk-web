@@ -40,8 +40,6 @@ kniha:
       hodnota: Jana Kreuzmannová – J+FK
     - nazev: ISBN
       hodnota: 978-80-910092-0-1
-    - nazev: Cena
-      hodnota: 550 Kč
   koupit_nadpis: Jak knihu získat
   koupit_text: |-
     Knihu si můžete objednat přímo u vydavatelství přes formulář, e-mailem nebo telefonicky. Cena knihy je **550 Kč**.
@@ -110,7 +108,7 @@ soundtrack:
 pomoc:
   zobrazit: true
   nadpis: Kniha, která pomáhá
-  cislo: 10 %
+  cislo: ''
   text: |-
     Koupí knihy se připojíte k podpoře herce, recitátora a úžasného člověka **Alfreda Strejčka**, který před devíti lety téměř úplně ochrnul. Díky své neuvěřitelně silné vůli a vytrvalosti lékařů žije a dál vystupuje, i když na vozíku a se značným omezením pohybu.
 
