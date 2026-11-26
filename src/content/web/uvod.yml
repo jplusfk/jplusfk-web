@@ -59,20 +59,14 @@ galerie:
   zobrazit: true
   nadpis: ''
   fotky:
-    - foto: /src/assets/uploads/knihy-vejir-3.jpg
-      alt: Výtisky knihy Adventní povídky rozložené do vějíře
-    - foto: /src/assets/uploads/platenna-vazba.jpg
-      alt: Plátěná vazba se slepou ražbou názvu a lucerny
     - foto: /src/assets/uploads/prebal-detail.jpg
       alt: Detail přebalu s ilustrací muže pod lucernou
+    - foto: /src/assets/uploads/platenna-vazba.jpg
+      alt: Plátěná vazba se slepou ražbou názvu a lucerny
     - foto: /src/assets/uploads/hrbety-knih.jpg
       alt: Hřbety knih s logem J+FK
     - foto: /src/assets/uploads/kniha-v-prebalu.jpg
       alt: Kniha v přebalu
-    - foto: /src/assets/uploads/knihy-vejir-2.jpg
-      alt: Šité hřbety knih s kapitálkem
-    - foto: /src/assets/uploads/knihy-vejir.jpg
-      alt: Stoh knih Adventní povídky
 soundtrack:
   nadpis: Každá povídka má svou melodii
   text: |-
