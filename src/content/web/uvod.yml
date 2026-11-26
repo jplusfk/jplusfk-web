@@ -83,9 +83,9 @@ soundtrack:
   foto_alt: ''
   interpreti:
     - jmeno: Michal Kostiuk
-      role: klarinet, altsaxofon
+      role: basklarinet, flétna, klarinet, sopran saxofon, tenor saxofon
     - jmeno: Alena Rokos Veretina
-      role: klavír, klávesy
+      role: klávesy
     - jmeno: Jarmila Kostiuková
       role: housle
   poslech_nadpis: Poslechněte si album
@@ -105,7 +105,7 @@ soundtrack:
     - nazev: Youtube Music
       url: https://music.youtube.com/playlist?list=OLAK5uy_mHLSYKV5bcjvTQxmq1-0fgGDebDGu_oq4
       zobrazit: true
-    - nazev: Všechny platformy (iMusician)
+    - nazev: A další platformy (iMusician)
       url: https://music.imusician.pro/a/ysSWiN21/
       zobrazit: true
   poznamka: ''
