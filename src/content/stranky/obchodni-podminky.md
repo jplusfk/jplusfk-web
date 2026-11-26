@@ -28,7 +28,6 @@ Tyto obchodní podmínky upravují vztahy mezi prodávajícím a kupujícím př
 • osobní odběr 0 Kč.
 3. Kupující může zaplatit: 
 • převodem na účet předem;
-• dobírkou;
 • v hotovosti při osobním převzetí.
 4. Doklad o koupi zašle prodávající kupujícímu e-mailem nebo jej přiloží k zásilce.
 
