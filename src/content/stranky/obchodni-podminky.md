@@ -62,7 +62,7 @@ Zpracování osobních údajů popisují [zásady ochrany osobních údajů](/oc
 
 Tyto obchodní podmínky platí od data uvedeného výše. Smlouva se uzavírá v českém jazyce. Prodávající může podmínky změnit; pro objednávku platí znění účinné v den jejího odeslání.
 
-## Vzorový formulář pro odstoupení od smlouvy
+## Vzorový text pro odstoupení od smlouvy
 
 > Adresát: Jana Kreuzmannová – J+FK, Husníkova 2079/4, Praha 13 – Stodůlky, JplusFK@gmail.com
 >
