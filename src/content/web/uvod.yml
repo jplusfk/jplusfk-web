@@ -63,10 +63,14 @@ galerie:
       alt: Detail přebalu s ilustrací muže pod lucernou
     - foto: /src/assets/uploads/platenna-vazba.jpg
       alt: Plátěná vazba se slepou ražbou názvu a lucerny
-    - foto: /src/assets/uploads/hrbety-knih.jpg
-      alt: Hřbety knih s logem J+FK
     - foto: /src/assets/uploads/kniha-v-prebalu.jpg
       alt: Kniha v přebalu
+    - foto: /src/assets/uploads/IMG_7958.webp
+      alt: ''
+    - foto: /src/assets/uploads/IMG_7952.webp
+      alt: ''
+    - foto: /src/assets/uploads/hrbety-knih.jpg
+      alt: Hřbety knih s logem J+FK
 soundtrack:
   nadpis: Každá povídka má svou melodii
   text: |-
