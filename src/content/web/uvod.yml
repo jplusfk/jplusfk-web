@@ -22,21 +22,21 @@ kniha:
   foto: /src/assets/uploads/kniha-otevrena.jpg
   foto_alt: Otevřená kniha s textem povídky a celostránkovou ilustrací
   parametry:
-    - nazev: Autor
+    - nazev: autor
       hodnota: František Kreuzmann
-    - nazev: Ilustrace
+    - nazev: ilustrace
       hodnota: Petr Herold
-    - nazev: Obsah
+    - nazev: obsah
       hodnota: 24 adventních a vánočních povídek
-    - nazev: Rozsah
+    - nazev: rozsah
       hodnota: 154 stran
-    - nazev: Formát
+    - nazev: formát
       hodnota: 16 × 23 cm
-    - nazev: Vazba
+    - nazev: vazba
       hodnota: šitá pevná, potažená plátnem se slepou ražbou
-    - nazev: Vydání
+    - nazev: vydání
       hodnota: 1. vydání, Praha 2026
-    - nazev: Vydalo
+    - nazev: vydalo
       hodnota: Jana Kreuzmannová – J+FK
     - nazev: ISBN
       hodnota: 978-80-910092-0-1
