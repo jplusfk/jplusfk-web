@@ -1,7 +1,7 @@
 ---
 title: Obchodní podmínky
 popis: Obchodní podmínky pro prodej knihy Adventní povídky vydavatelstvím Jana Kreuzmannová – J+FK.
-aktualizace: '[DOPLNIT datum]'
+aktualizace: 25. 11. 2026
 poradi: 1
 ---
 
