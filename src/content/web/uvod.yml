@@ -163,11 +163,7 @@ kontakt:
     souhlas: Údaje z formuláře použijeme jen k odpovědi na vaši zprávu nebo k vyřízení objednávky, podrobnosti najdete v [zásadách ochrany osobních údajů](/ochrana-osobnich-udaju/). Objednávky se řídí [obchodními podmínkami](/obchodni-podminky/).
 paticka:
   text: Všechna práva vyhrazena.
-  tiraz:
-    - nazev: Text
-      hodnota: © František Kreuzmann, 2026
-    - nazev: Obálka a ilustrace
-      hodnota: © Petr Herold, 2026
+  tiraz: []
 seo:
   title: Adventní povídky – František Kreuzmann | Vydavatelství J+FK
   description: 24 adventních povídek Františka Kreuzmanna s ilustracemi Petra Herolda a vlastní hudbou. 10 % z ceny každého výtisku jde na léčbu Alfreda Strejčka.
