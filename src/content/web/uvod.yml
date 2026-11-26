@@ -42,7 +42,9 @@ kniha:
       hodnota: 978-80-910092-0-1
   koupit_nadpis: Jak knihu získat
   koupit_text: |-
-    Knihu si můžete objednat přímo u vydavatelství přes formulář, e-mailem nebo telefonicky. Cena knihy je **550 Kč**.
+    Knihu si můžete objednat přímo u vydavatelství přes formulář, e-mailem nebo telefonicky. 
+
+    Cena knihy je **550 Kč**.
 
     **Koupí knihy získáte:**
 
@@ -89,19 +91,19 @@ soundtrack:
     - nazev: Spotify
       url: https://open.spotify.com/album/1h3PR340UNuzYbVXcqRisx
       zobrazit: true
-    - nazev: Amazon Music
-      url: https://music.amazon.com/albums/B0HN51LPX4
-      zobrazit: true
     - nazev: Tidal
       url: https://tidal.com/album/adventn%C3%AD-pov%C3%ADdky/570095536
       zobrazit: true
-    - nazev: Deezer
-      url: https://www.deezer.com/cs/album/1122246472
+    - nazev: Amazon Music
+      url: https://music.amazon.com/albums/B0HN51LPX4
       zobrazit: true
     - nazev: Youtube Music
       url: https://music.youtube.com/playlist?list=OLAK5uy_mHLSYKV5bcjvTQxmq1-0fgGDebDGu_oq4
       zobrazit: true
-    - nazev: A další platformy (iMusician)
+    - nazev: Deezer
+      url: https://www.deezer.com/cs/album/1122246472
+      zobrazit: true
+    - nazev: iMusician
       url: https://music.imusician.pro/a/ysSWiN21/
       zobrazit: true
   poznamka: ''
