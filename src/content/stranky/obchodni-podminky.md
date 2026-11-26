@@ -24,8 +24,7 @@ Tyto obchodní podmínky upravují vztahy mezi prodávajícím a kupujícím př
 1. Cena knihy je konečná a uvedená vč. DPH na webu a v potvrzení objednávky. 
 2. K ceně se připočítává poštovné podle zvoleného způsobu doručení: 
 a) Zásilkovna 99 Kč;
-b) Balíkovna 99 Kč;
-c) osobní odběr 0 Kč.
+b) osobní odběr 0 Kč.
 3. Kupující může zaplatit: 
 a) převodem na účet předem;
 b) v hotovosti při osobním převzetí.
